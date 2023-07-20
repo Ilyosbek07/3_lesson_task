@@ -1,5 +1,6 @@
 from django.db import models
-
+from ckeditor.fields import RichTextField
+from phonenumber_field.modelfields import PhoneNumberField
 
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -36,10 +37,10 @@ class News(models.Model):
     description = RichTextField()
     category = models.ForeignKey(
         NewsCategory,
-        on_delete=models.CASCADE,
+        on_delete=models.DO_NOTHING,
         related_name='category'
     )
-    tag = models.ManyToManyRel(
+    tag = models.ManyToManyField(
         NewsTag,
         related_name='news_tag'
     )
@@ -73,45 +74,6 @@ class FAQ(models.Model):
     def __str__(self):
         return self.name
 
-# ................................................
-
-class EmbassyCategory(models.Model):
-    name = models.CharField(max_length=125)
-
-    def __str__(self):
-        return self.name
-
-
-class Embassy(models.Model):
-    name = models.CharField(max_length=125)
-    picture = models.ImageField()
-    file = models.FileField()
-    category = models.ForeignKey(
-        EmbassyCategory,
-        on_delete=models.CASCADE
-    )
-
-    def __str__(self):
-        return self.name
-
-
-class EmbassyEmployee(models.Model):
-    name = models.CharField(max_length=125)
-    picture = models.ImageField()
-    phone = PhoneNumberField()
-    from_country = models.CharField(max_length=125)
-    to_country = models.CharField(max_length=125)
-    email = models.EmailField()
-    embassy = models.ForeignKey(
-        Embassy,
-        on_delete=models.CASCADE,
-        related_name='embassy'
-    )
-
-    def __str__(self):
-        return self.name
-
-# ................................................ ...... 
 
 class Contact(models.Model):
     name = models.CharField(max_length=125)
@@ -130,6 +92,6 @@ class Admin(models.Model):
     occupation = models.CharField(max_length=125)
     description = RichTextField()
     work_time = models.CharField(max_length=125)
-
+    instagram = models.URLField()
     def __str__(self):
         return self.name
