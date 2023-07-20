@@ -73,6 +73,7 @@ class FAQ(models.Model):
     def __str__(self):
         return self.name
 
+# ................................................
 
 class EmbassyCategory(models.Model):
     name = models.CharField(max_length=125)
@@ -110,6 +111,7 @@ class EmbassyEmployee(models.Model):
     def __str__(self):
         return self.name
 
+# ................................................ ...... 
 
 class Contact(models.Model):
     name = models.CharField(max_length=125)
